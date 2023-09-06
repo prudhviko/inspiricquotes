@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="row mb-4">
+      {% for object in objects %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <a href="{% url 'quotes' object.pk %}">
+            <img
+              src="{{ object.image.url }}"
+              class="card-img-top img-fluid"
+              alt="Card Image"
+            />
+          </a>
+
+          <div class="card-body">
+            <p class="card-text">{{object.text| truncatechars:40}}</p>
+          </div>
+        </div>
+        <!--card ending tag-->
+      </div>
+      {% endfor %}
+    </div>
+    <!--row ending tag-->
+
+    <div class="row mb-4">
+      <div class="col-sm-12 mb-4">
+        <nav aria-label="inspiric-navigation">
+          <ul class="pagination pagination-sm justify-content-center">
+            {% if objects.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% endif %}
+            {% for i in objects.paginator.page_range %}
+            {% if objects.number == i %}
+            <li class="page-item active">
+              <span class="page-link"
+                >{{ i }}<span class="sr-only">(current)</span></span
+              >
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if objects.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+         {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+   
+  </div>
+  <!--container ending tag -->
+</section>
+{% endblock %}

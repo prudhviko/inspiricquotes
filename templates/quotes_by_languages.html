@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section class="section">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-lg-8 mb-5 mb-lg-0">
+        <div class="line-with-text">
+          <span>Quotes By {{language_name}}</span>
+        </div>
+        <div class="row mt-4">
+          {% for quote in objects %}
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <a href="{% url 'display_quotes_languages' quote_id=quote.id language_id=quote.language_id %}">
+                <img
+                  src="{{ quote.image.url }}"
+                  class="card-img-top img-fluid"
+                  alt="Card Image"
+                />
+              </a>
+              <div class="card-body">
+                <p class="card-text">{{quote.text| truncatechars:40}}</p>
+              </div>
+            </div> <!-- Card End Tag..-->
+          </div> <!-- Tow Column End Tag...-->
+          {% endfor %}
+          
+        </div> <!-- Inner Row End Tag...-->
+
+        <nav aria-label="inspiric-navigation">
+          <ul class="pagination justify-content-center">
+            {% if objects.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% endif %}
+            {% for i in objects.paginator.page_range %}
+            {% if objects.number == i %}
+            <li class="page-item active">
+              <span class="page-link"
+                >{{ i }}<span class="sr-only">(current)</span></span
+              >
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if objects.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        {% endif %}
+          </ul>
+        </nav>
+
+        <div class="line-with-text" style="margin-top: 48px !important;">
+          <span>Quotes To Explore By Other Languages</span>
+        </div>
+
+        <div class="quotes-author-container mt-4">
+          <div class="row text-center space-around mt-4">
+            {% for lang in all_languages %}
+            <div class="col-lg-4">
+              <a
+                href="{% url 'quotes_by_languages' id=lang.id name=lang.name|slugify %}"
+                >{{lang.name}}</a
+              >
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div> <!-- Eight Column End Tag...-->
+ 
+
+      <aside class="col-lg-4">
+        <!-- <div class="widget">
+          <h5 class="widget-title"><span>Search</span></h5>
+          <form action="/logbook-hugo/search" class="widget-search">
+            <input
+              id="search-query"
+              name="s"
+              type="search"
+              placeholder="Type &amp; Hit Enter..."
+            />
+            <button type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div> -->
+        <!-- categories -->
+        <div class="widget">
+          <h5 class="widget-title"><span>Categories</span></h5>
+          <ul class="list-unstyled widget-list">
+            {% for category in categories %}
+            <li>
+              <a href="{% url 'quotes_by_categories' id=category.id name=category.name|slugify %}" class="d-flex"
+                >{{ category.name }}</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </aside>
+
+    </div> <!--Row End Tag...-->
+  </div> <!--Container End Tag...-->
+</section> <!--Section End Tag...-->
+
+{% endblock %}

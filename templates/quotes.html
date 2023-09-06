@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mb-5 mb-lg-0">
+        <div class="card">
+          <a href="{% url 'quotes' quote.pk %}">
+            <img
+              src="{{ quote.image.url }}"
+              class="card-img-top img-fluid"
+              alt="Card Image"
+            />
+          </a>
+          <div class="card-body">
+            <p class="card-text">{{quote.text}}</p>
+            <div class="social-media-icons">
+              <a href="#" class="social-share-icon"
+                ><img src="{% static 'images/facebook.png' %}" alt="Facebook"
+              /></a>
+              <a href="#" class="social-share-icon"
+                ><img src="{% static 'images/twitter.png' %}" alt="Twitter"
+              /></a>
+              <a href="#" class="social-share-icon"
+                ><img src="{% static 'images/instagram.png' %}" alt="LinkedIn"
+              /></a>
+            </div>
+            <!--Social Media Icons Ending...-->
+          </div>
+          <!-- Card Body Ending...-->
+          <div class="card-footer">
+            <div class="author d-flex justify-content-center">
+              {% if previous_quote %}
+              <a href="{% url 'quotes' id=previous_quote.id %}"
+                ><i class="bi bi-chevron-left"></i
+              ></a>
+              {% endif %} {% if next_quote %}
+              <a href="{% url 'quotes' id=next_quote.id %}" style="float: right"
+                ><i class="bi bi-chevron-right ml-4"></i
+              ></a>
+              {% endif %}
+            </div>
+          </div>
+          <!-- Card Footer Ending...-->
+        </div>
+        <!-- Card Ending...-->
+        <div class="quotes-author-container mt-4">
+          <div class="line-with-text">
+            <span>Quotes To Explore By Authors</span>
+          </div>
+          <div class="row text-center space-around mt-4">
+            {% for author in authors %}
+            <div class="col-lg-4">
+              <a
+                href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}"
+                >{{author.name}}</a
+              >
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="quotes-languages-container mt-4">
+          <div class="line-with-text">
+            <span>Quotes To Explore By Languages</span>
+          </div>
+          <div class="row text-center space-around mt-4">
+            {% for language in languages %}
+            <div class="col-lg-4">
+              <a
+                href="{% url 'quotes_by_languages' id=language.id name=language.name|slugify %}"
+                >{{language.name}}</a
+              >
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!--left side column ending...-->
+
+      <!--ASIDE....-->
+      <aside class="col-lg-4">
+        <!-- <div class="widget">
+          <h5 class="widget-title"><span>Search</span></h5>
+          <form action="/logbook-hugo/search" class="widget-search">
+            <input
+              id="search-query"
+              name="s"
+              type="search"
+              placeholder="Type &amp; Hit Enter..."
+            />
+            <button type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div> -->
+        <!-- categories -->
+        <div class="widget">
+          <h5 class="widget-title"><span>Categories</span></h5>
+          <ul class="list-unstyled widget-list">
+            {% for category in categories %}
+            <li>
+              <a href="{% url 'quotes_by_categories' id=category.id name=category.name|slugify %}" class="d-flex"
+                >{{ category.name }}</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+      <!-- Right Side Aside Ending...-->
+    </div>
+    <!--row ending...-->
+  </div>
+  <!--container ending...-->
+</section>
+<!--section ending...-->
+
+{% endblock %}
