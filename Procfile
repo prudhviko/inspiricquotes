@@ -1,1 +1,1 @@
-web: gunicorn 'quotesapp.wsgi'
+web: gunicorn website.wsgi
