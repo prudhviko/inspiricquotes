@@ -1,18 +1,19 @@
 from .models import Quote,Author,Language,Category
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
-
+from django.http import HttpResponse
 
 def custom_404(request, exception):
     return render(request, "404.html",status=404)
 
 def home(request):
-    quotes = Quote.objects.all()[:145]
-    paginator = Paginator(quotes, 18)
-    page = request.GET.get('page')
-    objects = paginator.get_page(page)
-    context = {'objects': objects}
-    return render(request, 'home.html', context)
+    return HttpResponse('Hello, World...')
+    # quotes = Quote.objects.all()[:145]
+    # paginator = Paginator(quotes, 18)
+    # page = request.GET.get('page')
+    # objects = paginator.get_page(page)
+    # context = {'objects': objects}
+    # return render(request, 'home.html', context)
 
 def quotes(request, id):
     current_quote = get_object_or_404(Quote, id=id)
