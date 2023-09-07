@@ -7,13 +7,12 @@ def custom_404(request, exception):
     return render(request, "404.html",status=404)
 
 def home(request):
-    return HttpResponse('Hello, World...')
-    # quotes = Quote.objects.all()[:145]
-    # paginator = Paginator(quotes, 18)
-    # page = request.GET.get('page')
-    # objects = paginator.get_page(page)
-    # context = {'objects': objects}
-    # return render(request, 'home.html', context)
+    quotes = Quote.objects.all()
+    paginator = Paginator(quotes, 18)
+    page = request.GET.get('page')
+    objects = paginator.get_page(page)
+    context = {'objects': objects}
+    return render(request, 'home.html', context)
 
 def quotes(request, id):
     current_quote = get_object_or_404(Quote, id=id)
@@ -28,7 +27,7 @@ def quotes(request, id):
 
 
 def quotes_by_authors(request,id,name):
-    quotes = Quote.objects.filter(author__id=id)[:145]
+    quotes = Quote.objects.filter(author__id=id)
     paginator = Paginator(quotes, 18)
     page = request.GET.get('page')
     objects = paginator.get_page(page)
@@ -55,7 +54,7 @@ def display_quotes_authors(request,author_id,quote_id):
     return render(request, 'display_quotes_authors.html', context)
 
 def quotes_by_languages(request,id,name):
-    quotes = Quote.objects.filter(language__id=id)[:145]
+    quotes = Quote.objects.filter(language__id=id)
     paginator = Paginator(quotes, 18)
     page = request.GET.get('page')
     objects = paginator.get_page(page)
@@ -82,7 +81,7 @@ def display_quotes_languages(request,quote_id,language_id):
     return render(request, 'display_quotes_languages.html', context)
 
 def quotes_by_categories(request,id,name):
-    quotes = Quote.objects.filter(category__id=id)[:145]
+    quotes = Quote.objects.filter(category__id=id)
     paginator = Paginator(quotes, 18)
     page = request.GET.get('page')
     objects = paginator.get_page(page)
