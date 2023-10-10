@@ -9,7 +9,7 @@
         </div>
         <div class="row mt-4">
           {% for quote in objects %}
-          <div class="col-6 mb-4">
+          <div class="col-12 col-lg-6 mb-4">
             <div class="card rounded-0">
               <a href="{% url 'display_quotes_languages' quote_id=quote.id language_id=quote.language_id %}">
                 <img src="{{quote.image.url}}" class="img-fluid" alt="card" />
