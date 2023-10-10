@@ -48,6 +48,37 @@ table {
 /* End Reset */
 
 .logo{
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
 }
+a{
+	color: blue !important;
+	text-decoration: none !important;
+}
+
+.line-with-text {
+	display: flex;
+	align-items: center;
+	text-align: center;
+  }
+  
+  .line-with-text::before,
+  .line-with-text::after {
+	content: '';
+	flex: 1;
+	border-bottom: 1px solid #000;
+  }
+  
+  .line-with-text::before {
+	margin-right: .5em;
+  }
+  
+  .line-with-text::after {
+	margin-left: .5em;
+  }
+
+  .social-share-icon img {
+	width: 20px;
+	margin-right: 12px;
+  }
+  

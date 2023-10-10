@@ -106,6 +106,12 @@ def display_quotes_categories(request,quote_id,category_id):
        'all_categories': all_categoires
     }
     return render(request, 'display_quotes_categories.html', context)
+
+def about(request):
+    return render(request,'about.html')
+
+def privacy_policy(request):
+    return render(request,'privacy-policy.html')
     
 
    

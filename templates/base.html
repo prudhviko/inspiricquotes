@@ -3,119 +3,79 @@
 <html lang="en-us">
 
 <head>
-
-  {% if meta_title %}
-  <title> {{meta_title}} </title>
-  <meta name="description" content="{{meta_description}}" />
-  <meta name="og:title" content="{{meta_title}}" />
-  <meta name="og:description" content="{{meta_description}}" />
-  <meta name="twitter:title" content="{{meta_title}}" />
-  <meta name="twitter:description" content="{{meta_description}}" />
-  {% else %}
-  <title> Book Summaries, Book Recommendations, and Quotes</title>
-  <meta name="description"
-    content="Discover concise book summaries, get valuable book recommendations, and explore inspiring quotes to enrich your reading journey." />
-  <meta name="og:title" content="thebookinfo: Book Summaries, Book Recommendations, and Quotes" />
-  <meta name="og:description"
-    content="Discover concise book summaries, get valuable book recommendations, and explore inspiring quotes to enrich your reading journey." />
-  <meta name="twitter:title" content="thebookinfo: Book Summaries, Book Recommendations, and Quotes" />
-  <meta name="twitter:description"
-    content="Discover concise book summaries, get valuable book recommendations, and explore inspiring quotes to enrich your reading journey." />
-  {% endif %}
-
-  <meta charset="utf-8" />
-  <meta name="keywords"
-    content="books,quotes,book summaries, book recommendations, motivational quotes, positive quotes, best books to read, best books of all time, life quotes, thought-provoking quotes, book hub, reading community" />
-  <meta name="author" content="prudhvi" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
-  <meta name="og:image" content="{% static 'images/logo.svg' %}" />
-  <meta name="og:url" content="https://thebookinfo.com/" />
-  <meta name="og:type" content="website" />
-  <meta name="twitter:image" content="{% static 'images/logo.svg' %}" />
-  <meta name="twitter:card" content="{% static 'images/logo.svg' %}" />
-
-
-
-  <link rel="canonical" href="https://thebookinfo.com/">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon" />
-  <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon" />
 </head>
 
 <body>
 
-
-
   <header class="sticky-top bg-white border-bottom border-default">
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-white">
-        <a class="navbar-brand" href="{% url 'home' %}">
-          <img class="img-fluid logo rounded-circle" src="{% static 'images/inslogo.svg' %}" alt="LogBook" />
-        </a>
-        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
-          <i class="bi bi-list"></i>
-        </button>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img class="img-fluid logo rounded-circle" src="{% static 'images/inslogo.svg' %}" alt="Inspiric Quotes" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
 
-        <div class="collapse navbar-collapse text-center" id="navigation">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Home</a>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Authors</a>
-            </li> -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">Authors
+                </a>
+                <div class="dropdown-menu rounded-0">
+                  {% for author in authors %}
+                  <a class="dropdown-item"
+                    href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}">{{author.name}}</a>
+                  {% endfor %}
+                </div>
+              </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Authors<i class="bi bi-chevron-down ml-1"></i>
-              </a>
-              <div class="dropdown-menu">
-                {% for author in authors %}
-                <a class="dropdown-item"
-                  href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}">{{author.name}}</a>
-                {% endfor %}
-              </div>
-            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">Categories
+                </a>
+                <div class="dropdown-menu rounded-0">
+                  {% for category in categories %}
+                  <a class="dropdown-item"
+                    href="{% url 'quotes_by_categories' id=category.id name=category.name|slugify %}">{{category.name}}</a>
+                  {% endfor %}
+                </div>
+              </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Categories<i class="bi bi-chevron-down ml-1"></i>
-              </a>
-              <div class="dropdown-menu">
-                {% for category in categories %}
-                <a class="dropdown-item"
-                  href="{% url 'quotes_by_categories' id=category.id name=category.name|slugify %}">{{category.name}}</a>
-                {% endfor %}
-              </div>
-            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">Languages
+                </a>
+                <div class="dropdown-menu rounded-0">
+                  {% for language in languages %}
+                  <a class="dropdown-item"
+                    href="{% url 'quotes_by_languages' id=language.id name=language.name|slugify %}">{{language.name}}</a>
+                  {% endfor %}
+                </div>
+              </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Languages<i class="bi bi-chevron-down ml-1"></i>
-              </a>
-              <div class="dropdown-menu">
-                {% for language in languages %}
-                <a class="dropdown-item"
-                  href="{% url 'quotes_by_languages' id=language.id name=language.name|slugify %}">{{language.name}}</a>
-                {% endfor %}
-              </div>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+              </li>
+            </ul>
 
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-          </ul>
+          </div>
         </div>
       </nav>
-    </div>
   </header>
   {% block content %} {% endblock %}
 
@@ -123,22 +83,23 @@
     <div class="container-fluid justify-content-center align-items-center text-center">
       <div class="row">
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 p-4">
-          <img src="https://thebookinfo.com/static/images/logo.svg" />
-          <p>Welcome to Book Info, your ultimate destination for captivating book summaires and soul-stirring
-            literary quotes. We are thrilled to have you here in our cozy corner of the internet, where the
-            magic of storytelling comes alive!</p>
+          <img src="{% static 'images/inslogo.svg' %}" class="logo rounded-circle mb-2" />
+          <p>Welcome to our delightful website, a treasure trove of wisdom and inspiration! We've gathered a diverse
+            collection of quotes from brilliant minds across the globe and throughout history. Explore profound
+            thoughts, witty sayings, and heartfelt words in multiple languages. Let our quotes brighten your day and
+            expand your horizons.</p>
         </div>
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 p-4">
           <h6>QuickLinks</h6>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link text-black" href="#">Home</a>
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-black" href="#">Quotes</a>
+              <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-black" href="#">Services</a>
+              <a class="nav-link" href="{% url 'privacy-policy' %}">Privacy Policy</a>
             </li>
           </ul>
 
@@ -150,12 +111,11 @@
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="{%static 'js/script.js' %}"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -1,20 +1,16 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section class="section">
-  <div class="container">
-    <div class="row mb-4">
+  <div class="container p-4">
+    <div class="row">
       {% for object in objects %}
       <div class="col-md-4 mb-4">
-        <div class="card">
+        <div class="card rounded-0">
           <a href="{% url 'quotes' object.pk %}">
-            <img
-              src="{{ object.image.url }}"
-              class="card-img-top img-fluid"
-              alt="Card Image"
-            />
+            <img src="{{ object.image.url }}" class="img-fluid" alt="Card Image" />
           </a>
 
           <div class="card-body">
-            <p class="card-text">{{object.text| truncatechars:40}}</p>
+            <p class="card-text">{{object.text| truncatechars:40 }}</p>
           </div>
         </div>
         <!--card ending tag-->
@@ -37,9 +33,7 @@
             {% for i in objects.paginator.page_range %}
             {% if objects.number == i %}
             <li class="page-item active">
-              <span class="page-link"
-                >{{ i }}<span class="sr-only">(current)</span></span
-              >
+              <span class="page-link">{{ i }}
             </li>
             {% else %}
             <li class="page-item">
@@ -48,18 +42,18 @@
             {% endif %}
             {% endfor %}
             {% if objects.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-         {% endif %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {% endif %}
           </ul>
         </nav>
       </div>
     </div>
 
-   
+
   </div>
   <!--container ending tag -->
 </section>

@@ -9,5 +9,7 @@ urlpatterns = [
     path('quotes/languages/<int:id>/<str:name>',views.quotes_by_languages,name='quotes_by_languages'),
     path('languages/<int:quote_id>/<int:language_id>',views.display_quotes_languages,name='display_quotes_languages'),
     path('quotes/categories/<int:id>/<str:name>',views.quotes_by_categories,name='quotes_by_categories'),
-    path('quotes/<int:quote_id>/<int:category_id>',views.display_quotes_categories,name='display_quotes_categories')
+    path('quotes/<int:quote_id>/<int:category_id>',views.display_quotes_categories,name='display_quotes_categories'),
+    path('about/',views.about,name='about'),
+    path('privacy-policy/',views.privacy_policy,name='privacy-policy')
 ]
