@@ -3,7 +3,7 @@
   <div class="container p-4">
     <div class="row">
       {% for object in objects %}
-      <div class="col-md-4 mb-4">
+      <div class="col-12 col-lg-4 mb-4">
         <div class="card rounded-0">
           <a href="{% url 'quotes' object.pk %}">
             <img src="{{ object.image.url }}" class="img-fluid" alt="Card Image" />
@@ -13,11 +13,9 @@
             <p class="card-text">{{object.text| truncatechars:40 }}</p>
           </div>
         </div>
-        <!--card ending tag-->
       </div>
       {% endfor %}
     </div>
-    <!--row ending tag-->
 
     <div class="row mb-4">
       <div class="col-sm-12 mb-4">
