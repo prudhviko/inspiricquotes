@@ -112,6 +112,9 @@ def about(request):
 
 def privacy_policy(request):
     return render(request,'privacy-policy.html')
+
+def terms_conditions(request):
+    return render(request,'terms-conditions.html')
     
 
    

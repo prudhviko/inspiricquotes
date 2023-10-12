@@ -11,5 +11,6 @@ urlpatterns = [
     path('quotes/categories/<int:id>/<str:name>',views.quotes_by_categories,name='quotes_by_categories'),
     path('quotes/<int:quote_id>/<int:category_id>',views.display_quotes_categories,name='display_quotes_categories'),
     path('about/',views.about,name='about'),
-    path('privacy-policy/',views.privacy_policy,name='privacy-policy')
+    path('privacy-policy/',views.privacy_policy,name='privacy-policy'),
+    path('terms-conditions/',views.terms_conditions,name='terms-conditions')
 ]
