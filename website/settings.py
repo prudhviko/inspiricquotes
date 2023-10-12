@@ -12,6 +12,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = True
 
+SITE_ID = 1
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -22,7 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quotesapp',
-    'django_social_share'
+    'django_social_share',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
