@@ -77,8 +77,9 @@ a{
 	margin-left: .5em;
   }
 
-  .social-share-icon img {
-	width: 20px;
-	margin-right: 12px;
+  .bi {
+	font-size: 48px !important;
+	margin-right: 14px !important;
   }
+
   
