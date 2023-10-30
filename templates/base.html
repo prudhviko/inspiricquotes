@@ -10,35 +10,51 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/insfavicon.svg' %}" type="image/x-icon" />
+  <link rel="icon" href="{% static 'images/insfavicon.svg' %}" type="image/x-icon" />
+
   <!-- Meta Data -->
+  {% if meta_title %}
+  <title> {{meta_title}} </title>
+  <meta name="description" content="{{meta_description}}" />
+  <meta name="og:title" content="{{meta_title}}" />
+  <meta name="og:description" content="{{meta_description}}" />
+  <meta name="twitter:title" content="{{meta_title}}" />
+  <meta name="twitter:description" content="{{meta_description}}" />
+  {% else %}
   <title>InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes</title>
   <meta name="description"
-    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey..">
-  <meta class="swiftype" name="title" data-type="string"
-    content="InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes">
-  <meta class="swiftype" name="description" data-type="string"
-    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey..">
-  <meta class="swiftype" name="image" data-type="enum" content="{% static 'images/inslogo.svg' %}">
-  <meta property="og:title" content="InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="inspiricquotes">
-  <meta property="og:url" content="https://inspiricquotes.com/">
-  <meta property="og:description"
-    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey..">
-  <meta property="og:image" content="{% static 'images/inslogo.svg' %}">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:site" content="@inspricquotes">
-  <meta property="twitter:title" content="InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes">
-  <meta property="twitter:description"
-    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey..">
-  <meta property="twitter:image" content="{% static 'images/inslogo.svg' %}">
-  <!-- Meta Data Ends -->
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey.." />
+  <meta name="og:title" content="InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes" />
+  <meta name="og:description"
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey.." />
+  <meta name="twitter:title" content="thebookinfo: Book Summaries, Book Recommendations, and Quotes" />
+  <meta name="twitter:description"
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes. Embrace quotes for life's journey.." />
+  {% endif %}
+
+  <meta charset="utf-8" />
+  <meta name="keywords"
+    content="Motivational Quotes, Life Quotes, Love Quotes, Inspiring Quotes, Thought Provoking Quotes, Quotes By Different Languages, Quotes By Different Authros" />
+  <meta name="author" content="prudhvi" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="og:image" content="{% static 'images/inslogo.svg' %}" />
+  <meta name="og:url" content="https://inspiricquotes.com/" />
+  <meta name="og:type" content="website" />
+  <meta name="twitter:image" content="{% static 'images/inslogo.svg' %}" />
+  <meta name="twitter:card" content="{% static 'images/inslogo.svg' %}" />
+  <link rel="icon" href="{% static 'images/insfavicon.svg' %}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{% static 'images/insfavicon.png' %}" type="image/x-icon" />
+  <link rel="canonical" href="https://inspiricquotes.com/">
+   
+  
 </head>
 
 <body>
 
   <header class="sticky-top bg-white border-bottom border-default">
-    <div class="container">
+    <div class="container-fluid">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home' %}">
@@ -59,12 +75,13 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">Authors
                 </a>
-                <div class="dropdown-menu rounded-0">
-                  {% for author in authors %}
-                  <a class="dropdown-item"
-                    href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}">{{author.name}}</a>
-                  {% endfor %}
-                </div>
+                <div class="dropdown-menu rounded-0 scrollable-dropdown">
+                  <div class="scrollable-container">
+                      {% for author in authors %}
+                      <a class="dropdown-item" href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}">{{ author.name }}</a>
+                      {% endfor %}
+                  </div>
+              </div>
               </li>
 
               <li class="nav-item dropdown">

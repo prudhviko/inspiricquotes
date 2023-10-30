@@ -2,17 +2,30 @@
 <section class="display-quotes py-5">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-8 mx-auto">
+      <div class="col-12">
         <div class="card rounded-0">
           <a href="{% url 'quotes' quote.pk %}">
-            <img src="{{quote.image.url}}" class="img-fluid" />
+            <img src="{{quote.image.url}}" class="img-fluid" style="width: 100%;"/>
           </a>
           <div class="card-body">
             <p class="card-text">{{quote.text}}</p>
             <div class="social-media-icons">
-              <a href="#" class="social-share-icon"><img src="{% static 'images/facebook.png' %}" alt="Facebook" /></a>
-              <a href="#" class="social-share-icon"><img src="{% static 'images/twitter.png' %}" alt="Twitter" /></a>
-              <a href="#" class="social-share-icon"><img src="{% static 'images/instagram.png' %}" alt="LinkedIn" /></a>
+              <i
+                class="bi bi-facebook"
+                onclick="shareOnFacebook(window.location.href)"
+              ></i>
+              <i
+                class="bi bi-telegram"
+                onclick="shareOnTelegram(window.location.href,'{{quote.text}}')"
+              ></i>
+              <i
+                class="bi bi-whatsapp"
+                onclick="shareOnWhatsApp(window.location.href,'{{quote.text}}')"
+              ></i>
+              <i
+                class="bi bi-twitter"
+                onclick="shareOnTwitter(window.location.href)"
+              ></i>
             </div>
           </div>
           <div class="card-footer">

@@ -60,10 +60,14 @@ def quotes_by_languages(request,id,name):
     objects = paginator.get_page(page)
     language_name = Language.objects.filter(id=id).first()
     all_languages = Language.objects.exclude(id=id)
+    meta_title = language_name.meta_title
+    meta_description = language_name.meta_description
     context = {
         'objects': objects,
         'all_languages': all_languages,
-        'language_name': language_name
+        'language_name': language_name,
+        'meta_title': meta_title,
+        'meta_description': meta_description
     }
     return render(request,'quotes_by_languages.html',context)
 
@@ -72,10 +76,15 @@ def display_quotes_languages(request,quote_id,language_id):
     prev_quote = Quote.objects.filter(language_id=language_id, id__lt=quote.id).order_by('-id').first()
     next_quote = Quote.objects.filter(language_id=language_id, id__gt=quote.id).order_by('id').first()
     all_languages = Language.objects.exclude(id=language_id)
+    language_name = Language.objects.filter(id=language_id).first()
+    meta_title = language_name.meta_title
+    meta_description = language_name.meta_description
     context = {
         'quote': quote,
         'prev_quote': prev_quote,
         'next_quote': next_quote,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
         'all_languages': all_languages,
     }
     return render(request, 'display_quotes_languages.html', context)
@@ -87,10 +96,14 @@ def quotes_by_categories(request,id,name):
     objects = paginator.get_page(page)
     all_categories = Category.objects.exclude(id=id)
     category_name = Category.objects.filter(id=id).first()
+    meta_title = category_name.meta_title
+    meta_description = category_name.meta_description
     context = {
        'objects': objects,
        'all_categories': all_categories,
-       'category_name': category_name
+       'category_name': category_name,
+       'meta_title': meta_title,
+       'meta_description': meta_description
     }
     return render(request,'quotes_by_categories.html',context)
 
@@ -99,11 +112,16 @@ def display_quotes_categories(request,quote_id,category_id):
     prev_quote = Quote.objects.filter(category_id=category_id, id__lt=quote.id).order_by('-id').first()
     next_quote = Quote.objects.filter(category_id=category_id, id__gt=quote.id).order_by('id').first()
     all_categoires = Category.objects.exclude(id=category_id)
+    category_name = Category.objects.filter(id=category_id).first()
+    meta_title = category_name.meta_title
+    meta_description = category_name.meta_description
     context = {
        'quote': quote,
        'prev_quote': prev_quote,
        'next_quote': next_quote,
-       'all_categories': all_categoires
+       'all_categories': all_categoires,
+       'meta_title': meta_title,
+       'meta_description': meta_description
     }
     return render(request, 'display_quotes_categories.html', context)
 
