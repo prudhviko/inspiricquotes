@@ -20,7 +20,7 @@
     <div class="row mb-4">
       <div class="col-sm-12 mb-4">
         <nav aria-label="inspiric-navigation">
-          <ul class="pagination pagination-sm justify-content-center">
+          <ul class="pagination pagination-sm justify-content-center flex-wrap">
             {% if objects.has_previous %}
             <li class="page-item">
               <a class="page-link" href="?page=1" aria-label="First">
@@ -30,11 +30,11 @@
             {% endif %}
             {% for i in objects.paginator.page_range %}
             {% if objects.number == i %}
-            <li class="page-item active">
-              <span class="page-link">{{ i }}
+            <li class="page-item active mb-2">
+              <span class="page-link">{{ i }}</span>
             </li>
             {% else %}
-            <li class="page-item">
+            <li class="page-item mb-2">
               <a class="page-link" href="?page={{ i }}">{{ i }}</a>
             </li>
             {% endif %}
@@ -50,6 +50,8 @@
         </nav>
       </div>
     </div>
+    
+    
 
 
   </div>
