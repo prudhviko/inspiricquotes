@@ -133,7 +133,9 @@ def privacy_policy(request):
 
 def terms_conditions(request):
     return render(request,'terms-conditions.html')
-    
+
+def support_us(request):
+    return render(request,'support-us.html')
 
    
 
