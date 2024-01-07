@@ -1,60 +1,47 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<section class="section">
-  <div class="container-fluid p-4">
-    <div class="row">
+
+<section id="recent-posts" class="recent-posts">
+  <div class="container-fluid">
+    <div class="row gy-4">
       {% for object in objects %}
-      <div class="col-12 col-md-12 col-lg-3 mb-4">
-        <div class="card rounded-0 shadow-lg">
-          <a href="{% url 'quotes' object.pk %}">
-            <img src="{{ object.image.url }}" class="img-fluid h-200" alt="Card Image" />
-          </a>
-
-          <div class="card-body">
-            <p class="card-text">{{object.text| truncatechars:40 }}</p>
+      <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <article>
+          <div class="post-img">
+            <a href="{% url 'quotes' object.pk %}">
+            <img src="{{object.image.url}}" alt="" class="img-fluid">
+            </a>
           </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+          <h2 class="title">
+            {{object.text | truncatechars:60}}
+          </h2>
+        </article>
+      </div> <!-- Column Tag Ends Here-->
+      {% endfor %} 
+    </div> <!-- Row Tag Ends Here-->
 
-    <div class="row mb-4">
-      <div class="col-sm-12 mb-4">
-        <nav aria-label="inspiric-navigation">
-          <ul class="pagination pagination-sm justify-content-center flex-wrap">
-            {% if objects.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page=1" aria-label="First">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            {% endif %}
-            {% for i in objects.paginator.page_range %}
+    <div class="pagination d-flex justify-content-center">
+      <ul class="flex-wrap">
+        {% if objects.has_previous %}
+          <li><a href="?page=1"><span aria-hidden="true">&laquo;</span></a></li>
+        {% endif %}
+        {% for i in objects.paginator.page_range %}
             {% if objects.number == i %}
-            <li class="page-item active mb-2">
-              <span class="page-link">{{ i }}</span>
+            <li class="active">
+              <a>{{ i }}</a>
             </li>
             {% else %}
-            <li class="page-item mb-2">
-              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            <li>
+              <a href="?page={{ i }}">{{ i }}</a>
             </li>
             {% endif %}
-            {% endfor %}
-            {% if objects.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-      </div>
+        {% endfor %}
+
+        {% if objects.has_next %}
+        <li><a href="?page={{ objects.paginator.num_pages }}"><span aria-hidden="true">&raquo;</span></a></li>
+        {% endif %}
+      </ul>
     </div>
     
-    
-
-
-  </div>
-  <!--container ending tag -->
-</section>
+  </div> <!-- Container Tag Ends Here -->
+</section> <!-- Section Tag Ends Here...-->
 {% endblock %}

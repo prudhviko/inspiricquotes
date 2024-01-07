@@ -1,65 +1,70 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<section class="display-quotes py-5">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card rounded-0">
-          <a href="{% url 'quotes' quote.pk %}">
-            <img src="{{ quote.image.url }}" class="img-fluid" alt="Card Image" style="width: 100%;"/>
-          </a>
-          <div class="card-body">
-            <p class="card-text">{{quote.text}}</p>
-            <div class="social-media-icons">
-              <i
-                class="bi bi-facebook"
-                onclick="shareOnFacebook(window.location.href)"
-              ></i>
-              <i
-                class="bi bi-telegram"
-                onclick="shareOnTelegram(window.location.href,'{{quote.text}}')"
-              ></i>
-              <i
-                class="bi bi-whatsapp"
-                onclick="shareOnWhatsApp(window.location.href,'{{quote.text}}')"
-              ></i>
-              <i
-                class="bi bi-twitter"
-                onclick="shareOnTwitter(window.location.href)"
-              ></i>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="author d-flex justify-content-center">
-              {% if previous_quote %}
-              <a href="{% url 'display_quotes_languages' quote_id=previous_quote.id language_id=quote.language_id  %}"><i
-                  class="bi bi-chevron-left"></i></a>
-              {% endif %}
-              {% if next_quote %}
-              <a href="{% url 'display_quotes_languages' quote_id=next_quote.id language_id=quote.language_id %}"
-                style="float: right"><i class="bi bi-chevron-left"></i><i class="bi bi-chevron-right ml-4"></i></a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
+<div data-aos="fade" class="page-title">
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li class="current">{{quote.language.name}}</li>
+      </ol>
+    </div>
+  </nav>
+</div>
 
-        <div class="line-with-text" style="margin-top: 48px !important;">
-          <span>Quotes To Explore By Other Languages</span>
-        </div>
-
-        <div class="quotes-author-container mt-4">
-          <div class="row text-center space-around mt-4">
-            {% for lang in all_languages %}
-            <div class="col-lg-4">
-              <div class="card rounded-0 p-4">
-              <a href="{% url 'quotes_by_languages' id=lang.id name=lang.name|slugify %}">{{lang.name}}</a>
-              </div>
+<section id="blog-details" class="blog-details">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row g-5">
+      <div class="col-lg-8">
+        <article class="article">
+          <div class="post-img">
+            <a href="{% url 'quotes' quote.pk %}">
+              <img src="{{ quote.image.url }}" class="img-fluid" alt="Card Image" style="width: 100%;"/>
+            </a>
+          </div>
+          <h2 class="title">{{quote.text}}</h2>
+          <div class="meta-bottom d-flex justify-content-center align-items-center">
+            {% if previous_quote %}
+            <ul class="cats">
+              <li><a href="{% url 'display_quotes_languages' quote_id=previous_quote.id language_id=quote.language_id  %}">Previous</a></li>
+            </ul>
+            {% endif %}
+            {% if next_quote %}
+            <ul class="tags">
+              <li><a href="{% url 'display_quotes_languages' quote_id=next_quote.id language_id=quote.language_id %}">Next</a></li>
+            </ul>
+            {% endif %}
+          </div>
+        </article>
+        <div class="blog-author d-flex align-items-center">
+          <div>
+            <div class="social-links">
+              <a><i class="bi bi-facebook" onclick="shareOnFacebook(window.location.href)"></i></a>
+              <a><i class="bi bi-telegram" onclick="shareOnTelegram(window.location.href,'{{quote.text}}')"></i></a>
+              <a><i class="biu bi-whatsapp" onclick="shareOnWhatsApp(window.location.href,'{{quote.text}}')"></i></a>
+              <a><i class="bi bi-twitter" onclick="shareOnTwitter(window.location.href)"></i></a>
             </div>
-            {% endfor %}
           </div>
         </div>
       </div>
+
+      <div class="col-lg-4">
+        <div class="sidebar">
+          <div class="sidebar-item categories">
+            <h3 class="sidebar-title">Quotes By  Other Languages</h3>
+            <ul class="mt-3">
+              {% for lang in all_languages %}
+              <li><a href="{% url 'quotes_by_languages' id=lang.id name=lang.name|slugify %}">{{lang.name}}</a></li>
+              {% endfor %}
+            </ul>
+          </div><!-- End sidebar categories-->
+        </div><!-- End Sidebar -->
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
+
 
 {% endblock %}

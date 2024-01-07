@@ -1,74 +1,60 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<section class="categories py-5">
+<div data-aos="fade" class="page-title">
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li class="current">{{language_name}}</li>
+      </ol>
+    </div>
+  </nav>
+</div>
+
+<section id="recent-posts" class="recent-posts">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="line-with-text">
-          <h1 class="fw-bold text-center">{{language_name}}</h1>
-        </div>
-        <div class="row mt-4">
-          {% for quote in objects %}
-          <div class="col-12 col-lg-6 mb-4">
-            <div class="card rounded-0">
-              <a href="{% url 'display_quotes_languages' quote_id=quote.id language_id=quote.language_id %}">
-                <img src="{{quote.image.url}}" class="img-fluid" alt="card" />
-              </a>
-              <div class="card-body">
-                <p class="card-text">{{quote.text | truncatechars:40}}</p>
-              </div>
-            </div>
+    <div class="row gy-4">
+      {% for quote in objects %}
+      <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <article>
+          <div class="post-img">
+            <a href="{% url 'display_quotes_languages' quote_id=quote.id language_id=quote.language_id %}">
+              <img src="{{quote.image.url}}" class="img-fluid" alt="card" />
+            </a>
+            </a>
           </div>
-          {% endfor %}
-        </div>
-        <nav aria-label="inspiric-navigation">
-          <ul class="pagination justify-content-center">
-            {% if objects.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page=1" aria-label="First">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            {% endif %}
-            {% for i in objects.paginator.page_range %}
+          <h2 class="title">
+            {{quote.text | truncatechars:60}}
+          </h2>
+        </article>
+      </div> <!-- Column Tag Ends Here-->
+      {% endfor %} 
+    </div> <!-- Row Tag Ends Here-->
+
+    <div class="pagination d-flex justify-content-center">
+      <ul class="flex-wrap">
+        {% if objects.has_previous %}
+          <li><a href="?page=1"><span aria-hidden="true">&laquo;</span></a></li>
+        {% endif %}
+        {% for i in objects.paginator.page_range %}
             {% if objects.number == i %}
-            <li class="page-item active">
-              <span class="page-link">{{ i }}
+            <li class="active">
+              <a>{{ i }}</a>
             </li>
             {% else %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            <li>
+              <a href="?page={{ i }}">{{ i }}</a>
             </li>
             {% endif %}
-            {% endfor %}
-            {% if objects.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ objects.paginator.num_pages }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-        <div class="line-with-text" style="margin-top: 48px !important;">
-          <span>Quotes To Explore By Other Languages</span>
-        </div>
+        {% endfor %}
 
-        <div class="quotes-author-container mt-4">
-          <div class="row text-center space-around mt-4">
-            {% for lang in all_languages %}
-            <div class="col-lg-4 mb-4">
-              <div class="card rounded-0 p-4">
-              <a href="{% url 'quotes_by_languages' id=lang.id name=lang.name|slugify %}">{{lang.name}}</a>
-            </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-      </div>
+        {% if objects.has_next %}
+        <li><a href="?page={{ objects.paginator.num_pages }}"><span aria-hidden="true">&raquo;</span></a></li>
+        {% endif %}
+      </ul>
     </div>
-  </div>
+    
+  </div> 
 </section>
 
 {% endblock %}

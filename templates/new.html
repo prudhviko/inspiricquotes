@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  {% if meta_title %}
+  <title> {{meta_title}} </title>
+  <meta name="description" content="{{meta_description}}" />
+  <meta name="og:title" content="{{meta_title}}" />
+  <meta name="og:description" content="{{meta_description}}" />
+  <meta name="twitter:title" content="{{meta_title}}" />
+  <meta name="twitter:description" content="{{meta_description}}" />
+  {% else %}
+  <title>InspiricQuotes - Empowering Life with Quotes</title>
+  <meta name="description"
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes." />
+  <meta name="og:title" content="InspiricQuotes - Empowering Life with Inspirational Quotes, Motivational Quotes, and Love Quotes" />
+  <meta name="og:description"
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes." />
+  <meta name="twitter:title" content="thebookinfo: Book Summaries, Book Recommendations, and Quotes" />
+  <meta name="twitter:description"
+    content="Unleash positivity and wisdom with our curated collection of life-affirming quotes. Discover inspiration quotes, motivational quotes, and love quotes." />
+  {% endif %}
+  <meta charset="utf-8" />
+  <meta name="keywords"
+    content="Motivational Quotes, Life Quotes, Love Quotes, Inspiring Quotes, Thought Provoking Quotes, Quotes By Different Languages, Quotes By Different Authros" />
+  <meta name="author" content="prudhvi" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="og:image" content="{% static 'images/inslogo.svg' %}" />
+  <meta name="og:url" content="https://inspiricquotes.com/" />
+  <meta name="og:type" content="website" />
+  <meta name="twitter:image" content="{% static 'assets/img/inslogo.svg' %}" />
+  <meta name="twitter:card" content="{% static 'assets/img/inslogo.svg' %}" />
+  <link rel="icon" href="{% static 'assets/img/insfavicon.svg' %}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{% static 'assets/img/insfavicon.png' %}" type="image/x-icon" />
+  <link rel="canonical" href="https://inspiricquotes.com/">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+  
+
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+
+  <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+          <h1>INSPIRICQUOTES</h1>
+          <span>.</span>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="{% url 'home' %}" class="active">Home</a></li>
+            <li class="dropdown has-dropdown"><a href="#"><span>Authors</span> <i class="bi bi-chevron-down"></i></a>
+              <ul class="dd-box-shadow">
+                {% for author in authors %}
+                <li><a href="{% url 'quotes_by_authors' id=author.id name=author.name|slugify %}">{{author.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="dropdown has-dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
+              <ul class="dd-box-shadow">
+                {% for category in categories %}
+                <li><a href="{% url 'quotes_by_categories' id=category.id name=category.name|slugify %}">{{category.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="dropdown has-dropdown"><a href="#"><span>Languages</span> <i class="bi bi-chevron-down"></i></a>
+              <ul class="dd-box-shadow">
+                {% for language in languages %}
+                <li><a href="{% url 'quotes_by_languages' id=language.id name=language.name|slugify %}">{{language.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li><a href="{% url 'about' %}">About</a></li>     
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+        <a class="btn-getstarted" href="{% url 'support-us' %}">Support us</a>
+      </div>
+    </header>
+  <main id="main">
+    <section id="hero" class="hero">
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-up" data-aos-delay="100">Welcome to Our Website</h2>
+            <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+            <span>INSPIRICQUOTES</span>
+          </a>
+          <p>Welcome to our delightful website, a treasure trove of wisdom and inspiration! We've gathered a diverse
+            collection of quotes from brilliant minds across the globe and throughout history. Explore profound
+            thoughts, witty sayings, and heartfelt words in multiple languages. Let our quotes brighten your day and
+            expand your horizons.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'terms-conditions' %}">Terms Conditions</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
