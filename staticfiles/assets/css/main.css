@@ -152,7 +152,7 @@ section {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: #ffffff;
+  --background-color: var(--primary-color) !important;
   color: var(--default-color);
   background-color: var(--background-color);
   padding: 15px 0;
