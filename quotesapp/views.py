@@ -137,6 +137,8 @@ def terms_conditions(request):
 def support_us(request):
     return render(request,'support-us.html')
 
+def refund_policy(request):
+    return render(request,'refund-policy.html')
    
 
 
